@@ -1,39 +1,44 @@
 <div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-lg-6 col-md-12">
-              <div class="card">
-                  <div class="card-header card-header-danger">
-                      <h4 class="card-title">Please input country and license</h4>
-                      <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
-                  </div>
-                  <div class="card-body table-responsive">
-
-
-                    <img class="mainImg" src="assets/coreImg/carcheck.png">
-                    <br>
-                    <mat-select-country appearance="outline" class="countrySelect"
-                                    (onCountrySelected)="onCountrySelected($event)">
-                    </mat-select-country>
-
-                    <mat-select *ngIf="stateFlag">
-                        <mat-option *ngFor="let state of usStates" [value]="state.abbreviation">
-                        {{state.name}}
-                        </mat-option>
-                    </mat-select>
-                    <form class="example-form">
-                        <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Car License" value="">
-                        </mat-form-field>
-                    </form>
-                    <div class="example-button-row" style="display: flex; justify-content: center;">
-                        <button mat-raised-button color="accent" (click) = "btnClick()">Check</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Please input country and registration number</h4>
+                        <!-- <p class="card-category">New employees on 15th September, 2016</p> -->
                     </div>
-                    <re-captcha *ngIf="recaptchaFlag" (resolved)="resolved($event)" siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></re-captcha>
+                    <div class="card-body table-responsive">
 
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+
+                        <img class="mainImg" src="assets/coreImg/carcheck.png">
+                        <br>
+                        <!-- <mat-select-country appearance="outline" class="countrySelect"
+                                    (onCountrySelected)="onCountrySelected($event)">
+                    </mat-select-country> -->
+
+                        <mat-select style="margin: 5px; margin-top: 30px;" (selectionChange)="onCountrySelected($event)" placeholder="Select a Country">
+                            <mat-option *ngFor="let country of COUNTRIES_DB" [value]="country.alpha3Code">
+                                {{country.name}} - {{country.alpha2Code}}
+                                <img src="assets/svg-country-flags/svg/{{country.alpha2Code.toLowerCase()}}.svg" style="width: 30px; text-align: right; float: right; margin-top: 10px;">
+                            </mat-option>
+                        </mat-select>
+
+                        <mat-select style="margin: 5px;" *ngIf="stateFlag" (selectionChange)="onStateSelected($event)" placeholder="Select a State">
+                            <mat-option *ngFor="let state of usStates" [value]="state.abbreviation">
+                                {{state.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Registration number" value="" (change)="regNumberInput($event)">
+                        </mat-form-field>
+                        <div class="example-button-row" style="display: flex; justify-content: center;">
+                            <button mat-raised-button color="accent" (click)="btnClick()">Check</button>
+                        </div>
+                        <re-captcha *ngIf="recaptchaFlag" (resolved)="resolved($event)" siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></re-captcha>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

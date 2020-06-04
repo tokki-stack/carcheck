@@ -7,7 +7,7 @@
 
 # dependencies
 /node_modules
-
+/mobile
 # IDEs and editors
 /.idea
 .project
